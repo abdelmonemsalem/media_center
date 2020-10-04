@@ -1,13 +1,20 @@
 import React, { Component } from 'react'
 import Header from './Components/Header.jsx'
-import CreateMediaItem from './Components/pages/CreateMediaItem.jsx'
-import ViewMediaItem from './Components/pages/ViewMediaItem.jsx'
-import EditMediaItem from './Components/pages/EditMediaItem.jsx'
-import MediaCenterShow from './Components/pages/MediaCenterShow.jsx'
-import Home from './Components/pages/Home.jsx'
+import CreateMediaItem from './pages/CreateMediaItem.jsx'
+import ViewMediaItem from './pages/ViewMediaItem.jsx'
+import EditMediaItem from './pages/EditMediaItem.jsx'
+import MediaCenterShow from './pages/MediaCenterShow.jsx'
+import Login from './pages/auth/login.jsx'
+import Registration from './pages/auth/registration.jsx'
+import UserPage from './pages/UserPage.jsx'
+import Fav from './pages/Fav.jsx'
+import Home from './pages/Home.jsx'
 import {BrowserRouter, Route, Switch} from 'react-router-dom'
 import 'react-notifications-component/dist/theme.css'
 import './App.css';
+import store from './store/store';
+import { Provider } from 'react-redux'
+import ProtectedRoute from './Components/ProtectedRoute'
 
 class App extends Component {
   render() {
@@ -16,14 +23,24 @@ class App extends Component {
         <Header />
         <Switch>
           <Route path="/" exact component={Home} />
-          <Route path="/CreateMediaItem" component={CreateMediaItem} />
-          <Route path="/MediaCenterShow" component={MediaCenterShow} />
-          <Route path="/ViewMediaItem/:id" component={ViewMediaItem} />
-          <Route path="/EditMediaItem/:id" component={EditMediaItem} />
+          <ProtectedRoute path="/CreateMediaItem" component={CreateMediaItem} />
+          <ProtectedRoute path="/MediaCenterShow" component={MediaCenterShow} />
+          <ProtectedRoute path="/ViewMediaItem/:id" component={ViewMediaItem} />
+          <ProtectedRoute path="/EditMediaItem/:id" component={EditMediaItem} />
+          <Route path="/UserPage" component={UserPage} />
+          <ProtectedRoute path="/Fav" component={Fav} />
+          <Route path="/login" component={Login} />
+          <Route path="/registration" component={Registration} />
         </Switch>
       </BrowserRouter>
     )
   }
 }
 
-export default App
+function AppWithStore() {
+  return <Provider store={store}>
+      <App />
+    </Provider>
+}
+
+export default AppWithStore;

@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react'
-import {GetMediaItem, EditItem} from '../../API/GetData'
+import {GetMediaItem, EditItem} from '../API/GetData'
 import MediaForm from '../utils/MediaForm'
 import { store } from 'react-notifications-component'
 
@@ -34,7 +34,7 @@ class EditMediaItem extends Component {
                 animationIn: ["animate__animated", "animate__fadeIn"],
                 animationOut: ["animate__animated", "animate__fadeOut"],
                 dismiss: {
-                  duration: 2000,
+                  duration: 1000,
                   onScreen: true
                 }
             });
@@ -55,13 +55,13 @@ class EditMediaItem extends Component {
                 animationIn: ["animate__animated", "animate__fadeIn"],
                 animationOut: ["animate__animated", "animate__fadeOut"],
                 dismiss: {
-                  duration: 2000,
+                  duration: 1000,
                   onScreen: true
                 }
             });
             setTimeout(() => {
                 window.location = '/MediaCenterShow'
-            }, 2000)
+            }, 1000)
         })
         .catch(err => {
             store.addNotification({
@@ -73,13 +73,13 @@ class EditMediaItem extends Component {
                 animationIn: ["animate__animated", "animate__fadeIn"],
                 animationOut: ["animate__animated", "animate__fadeOut"],
                 dismiss: {
-                  duration: 2000,
+                  duration: 1000,
                   onScreen: true
                 }
             });
             setTimeout(() => {
                 window.location = '/MediaCenterShow'
-            }, 2000)
+            }, 1000)
         })
     }
 

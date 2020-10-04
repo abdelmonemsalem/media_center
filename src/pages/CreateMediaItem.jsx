@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {AddItem} from '../../API/GetData'
+import {AddItem} from '../API/GetData'
 import MediaForm from '../utils/MediaForm'
 import { store } from 'react-notifications-component'
 
@@ -30,13 +30,13 @@ class CreateMediaItem extends Component {
                 animationIn: ["animate__animated", "animate__fadeIn"],
                 animationOut: ["animate__animated", "animate__fadeOut"],
                 dismiss: {
-                  duration: 2000,
+                  duration: 1000,
                   onScreen: true
                 }
             });
             setTimeout(() => {
                 window.location = '/MediaCenterShow'
-            }, 2000)
+            }, 1000)
         })
         .catch(err => {
             store.addNotification({
@@ -48,18 +48,17 @@ class CreateMediaItem extends Component {
                 animationIn: ["animate__animated", "animate__fadeIn"],
                 animationOut: ["animate__animated", "animate__fadeOut"],
                 dismiss: {
-                  duration: 2000,
+                  duration: 1000,
                   onScreen: true
                 }
             });
             setTimeout(() => {
                 window.location = '/MediaCenterShow'
-            }, 2000)
+            }, 1000)
         })
     }
 
     render() {
-        console.log(this.state.mediaItem)
         return (
             <MediaForm 
                 values={this.state.mediaItem}

@@ -1,9 +1,9 @@
 const router = require('express').Router();
-let Media = require('../models/media.model');
+let MediaItem = require('../models/mediaItems.model');
 
 router.route('/').get((req, res) => {
-  Media.find()
-    .then(media => res.json(media))
+  MediaItem.find()
+    .then(mediaItem => res.json(mediaItem))
     .catch(err => res.status(400).json('Error: ' + err));
 });
 
@@ -13,43 +13,46 @@ router.route('/add').post((req, res) => {
   const type = req.body.type;
   const title = req.body.title;
   const description = req.body.description;
+  const fav = req.body.fav 
 
-  const newMedia = new Media({
+  const newMediaItem = new MediaItem({
     date,
     imgUrl,
     type,
     title,
     description,
+    fav
   });
 
-  newMedia.save()
-  .then(() => res.json('Media added!'))
+  newMediaItem.save()
+  .then(() => res.json('MediaItem added!'))
   .catch(err => res.status(400).json('Error: ' + err));
 });
 
 router.route('/:id').get((req, res) => {
-  Media.findById(req.params.id)
-    .then(media => res.json(media))
+  MediaItem.findById(req.params.id)
+    .then(mediaItem => res.json(mediaItem))
     .catch(err => res.status(400).json('Error: ' + err));
 });
 
 router.route('/:id').delete((req, res) => {
-  Media.findByIdAndDelete(req.params.id)
-    .then(() => res.json('Media deleted.'))
+  MediaItem.findByIdAndDelete(req.params.id)
+    .then(() => res.json('MediaItem deleted.'))
     .catch(err => res.status(400).json('Error: ' + err));
 });
 
 router.route('/update/:id').post((req, res) => {
-  Media.findById(req.params.id)
-    .then(media => {
-      media.date = req.body.date;
-      media.imgUrl = req.body.imgUrl;
-      media.type = req.body.type;
-      media.title = req.body.title;
-      media.description = req.body.description;
+  MediaItem.findById(req.params.id)
+    .then(mediaItem => {
+      mediaItem.date = req.body.date;
+      mediaItem.imgUrl = req.body.imgUrl;
+      mediaItem.type = req.body.type;
+      mediaItem.title = req.body.title;
+      mediaItem.description = req.body.description;
+      mediaItem.fav = req.body.fav
       
-      media.save()
-        .then(() => res.json('Media updated!'))
+      mediaItem.save()
+        .then(() => res.json('MediaItem updated!'))
         .catch(err => res.status(400).json('Error: ' + err));
     })
     .catch(err => res.status(400).json('Error: ' + err));

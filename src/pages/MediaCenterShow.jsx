@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
-import DaysSlider from '../DaysSlider.jsx'
-import MediaSlider from '../MediaSlider.jsx'
+import DaysSlider from '../Components/DaysSlider.jsx'
+import MediaSlider from '../Components/MediaSlider'
 import Filters from '../utils/Filters.jsx'
-import {GetData} from '../../API/GetData'
+import {GetData} from '../API/GetData'
 import { store } from 'react-notifications-component'
 
 class MediaCenterShow extends Component {

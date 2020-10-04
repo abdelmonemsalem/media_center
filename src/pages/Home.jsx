@@ -10,7 +10,7 @@ function Home() {
   return(
     <div className="mediaCenter-home">
       <h1>Welcome !</h1>
-      <h3>This App is using: <span>React</span>, <span>MongoDB</span> & <span>NodeJS</span></h3>
+      <h3>This App using: <span>React</span>, <span>MongoDB</span> & <span>NodeJS</span></h3>
       <figure>
         <img src="./img/react.png" alt="react" />
         <img src="./img/mongodb.png" alt="mongoDb" />
