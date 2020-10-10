@@ -47,19 +47,21 @@ export class UsersSetting extends Component {
 
     handleUserSettings = (event) => {
         const index = event.target.value;
+        const id = event.target.id;
         const {value, name} = event.target;
         const usersData = this.state.usersData;
-        const user = usersData[index];
 console.log(event.target.id)
         if (name === 'confirm') {
+            const user = usersData[index];
             user.confirmed = !user.confirmed;
             usersData[index] = user;
             this.setState({
                 usersData: usersData
             })
         } else if (name === 'type') {
+            const user = usersData[id];
             user.type = value;
-            usersData[index] = user;
+            usersData[id] = user;
             this.setState({
                 usersData: usersData
             })

@@ -1,10 +1,7 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSignInAlt } from '@fortawesome/free-solid-svg-icons'
-
-function handleStart() {
-  window.location = '/MediaCenterShow'
-}
+import {Link} from 'react-router-dom'
 
 function Home() {
   return(
@@ -22,7 +19,7 @@ function Home() {
         <h5>Abd-elmonem Salem</h5>
         <h6>SR: Front-end Developer</h6>
       </div>
-      <button type="button" onClick={handleStart}>Start <FontAwesomeIcon icon={faSignInAlt}/></button>
+      <Link to="/MediaCenterShow">Start <FontAwesomeIcon icon={faSignInAlt}/></Link>
     </div>
   )
 }

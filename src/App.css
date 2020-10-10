@@ -605,14 +605,16 @@ form.mediaCenter-form button {
     font-size: 16px;
     text-align: left;
 }
-.mediaCenter-home button {
+.mediaCenter-home a {
     background-color: #7cc49c;
-    color: #000;
-    padding: 3px 30px;
+    color: #343a40;
+    padding: 7px 30px;
     font-size: 18px;
     border-radius: 5px;
     margin-top: 50px;
     cursor: pointer;
+    display: inline-block;
+    text-decoration: none;
 }
 
 
@@ -827,4 +829,10 @@ form {
     padding: 15px;
     border-radius: 5px;
     background-color: #e3e4e4;
+}
+
+span.errMsg {
+    color: red;
+    font-weight: 100;
+    font-size: 14px;
 }
