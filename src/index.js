@@ -1,13 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import ReactNotification from 'react-notifications-component'
+
 ReactDOM.render(
   <React.StrictMode>
     <ReactNotification />
-    <App />
+      <App />
   </React.StrictMode>,
   document.getElementById('root')
 );

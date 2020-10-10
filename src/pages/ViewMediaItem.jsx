@@ -6,6 +6,11 @@ import { faCalendarAlt, faEdit, faTrashAlt, faHeart } from '@fortawesome/free-so
 import { store } from 'react-notifications-component'
 import { connect } from 'react-redux'
 import { addToFav, removeFromFavById } from '../store/rootActions'
+import Row from 'react-bootstrap/Row'
+import Col from 'react-bootstrap/Col'
+import Card from 'react-bootstrap/Card'
+import Button from 'react-bootstrap/Button'
+
 export class ViewMediaItem extends Component {
     constructor(props) {
         super(props);
@@ -94,32 +99,40 @@ export class ViewMediaItem extends Component {
 
     render() {
         const {imgUrl, date, type, title, description} = this.state.mediaItem
-        const favBtn = this.state.fav ? <button onClick={() => this.handleRemoveFromFav(this.props.match.params.id)}> <FontAwesomeIcon icon={faHeart} /></button> : <button style={{backgroundColor: '#bbb'}} onClick={() => this.addToFav(this.state.mediaItem)}> <FontAwesomeIcon icon={faHeart} /></button>
-        const editBtn = <Link to={"/EditMediaItem/" + this.props.match.params.id}><FontAwesomeIcon icon={faEdit} /> Edit</Link>
-        const deleteBtn = <button onClick={this.handleDelete}><FontAwesomeIcon icon={faTrashAlt} /> Delete</button>
-        const userType = this.props.userType;
+        const favBtn = this.state.fav ? <Button className="favBtn" style={{backgroundColor: 'red', color: '#fff'}} onClick={() => this.handleRemoveFromFav(this.props.match.params.id)}> <FontAwesomeIcon icon={faHeart} /></Button> : <Button className="favBtn" style={{backgroundColor: '#bbb'}} onClick={() => this.addToFav(this.state.mediaItem)}> <FontAwesomeIcon icon={faHeart} /></Button>
+        console.log(this.state.fav)
+        const editBtn = <Link className="btn btn-info m-10" to={"/EditMediaItem/" + this.props.match.params.id}><FontAwesomeIcon icon={faEdit} /> Edit</Link>
+        const deleteBtn = <Button variant='danger' className="m-10" onClick={this.handleDelete}><FontAwesomeIcon icon={faTrashAlt} /> Delete</Button>
+        const {userType, userConfirmed} = this.props;
 
         return (
-            <div className="mediaItemDetails">
-                <img src={'.'+imgUrl} alt="img" />
-                <div>
-                    <h2>{title}</h2>
-                    <div>
-                        <span><FontAwesomeIcon icon={faCalendarAlt} /> {date}</span>
-                        <span className={type}>Type: {type}</span>
-                    </div>
-                    <p>{description}</p>
-                    {
-                        userType === 'admin' ? editBtn : null
-                    }
-                    {
-                        userType === 'admin' ? deleteBtn : null
-                    }
-                    {
-                        userType === 'admin' ? favBtn : null
-                    }
-                </div>
-            </div>
+            <Row>
+            <Col lg={{ span: 8, offset: 2 }} md={{ span: 8, offset: 2 }} sm={{ span: 8, offset: 2 }} className="mediaItemDetails">
+                <Card className="text-white">
+                    <Card.Img src={'.'+imgUrl} />
+                    <Card.ImgOverlay>
+                        <Card.Title>{title}</Card.Title>
+                        <Card.Text>
+                            <span className="date"><FontAwesomeIcon icon={faCalendarAlt} /> {date}</span>
+                            <span className={`type ${type}`}>Type: {type}</span>
+                            <span className="description">{description}</span>
+
+                            {
+                                userConfirmed === 'true' && userType === 'admin' ? favBtn : null
+                            }
+                        </Card.Text>
+                    </Card.ImgOverlay>
+                </Card>
+            </Col>
+            <Col lg={{ span: 8, offset: 2 }} md={{ span: 8, offset: 2 }} sm={{ span: 8, offset: 2 }}>
+                {
+                    userConfirmed === 'true' && userType === 'admin' ? editBtn : null
+                }
+                {
+                    userConfirmed === 'true' && userType === 'admin' ? deleteBtn : null
+                }
+            </Col>
+            </Row>
         )
     }
 }
@@ -132,7 +145,8 @@ const mapDispatchToProps = (dispatch) => {
 }
 const mapStateToProps = state => {
     return {
-        userType: state.user.userType
+        userType: state.user.userType,
+        userConfirmed: state.user.userConfirmed
     }
 }
 

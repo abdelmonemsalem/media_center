@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
 import DaysSlider from '../Components/DaysSlider.jsx'
-import MediaSlider from '../Components/MediaSlider'
+import MediaItem from '../Components/MediaItem'
 import Filters from '../utils/Filters.jsx'
+import Pager from '../utils/Pager'
 import {GetData} from '../API/GetData'
+import {paginate} from '../utils/Paginate'
 import { store } from 'react-notifications-component'
 
 class MediaCenterShow extends Component {
@@ -16,7 +18,9 @@ class MediaCenterShow extends Component {
       type: "",
       yearsRange: [1950, 2050],
       data: [],
-      filterdData: []
+      filterdData: [],
+      pageSize: 5,
+      currentPage: 1
     }
   }
 
@@ -81,15 +85,26 @@ class MediaCenterShow extends Component {
     
   }
 
+  handlePageChange = page => {
+    this.setState({ currentPage: page })
+  }
 
   render() {
-    const {month, year, months, yearsRange, type, filterdData} = this.state;
+    const {month, year, months, yearsRange, type, filterdData, pageSize, currentPage, day} = this.state;
     return (
         <main className="mediaCenter">
           
           <Filters month={month} year={year} months={months} type={type} yearsRange={yearsRange} handleChangeFilter={this.handleChangeFilter} />
-          <DaysSlider month={month} year={year} months={months} handleSelectDay={this.handleSelectDay} />
-          <MediaSlider filterdData={filterdData} />
+          <DaysSlider month={month} year={year} months={months} day={day} handleSelectDay={this.handleSelectDay} />
+          <MediaItem filterdData={paginate(filterdData, currentPage, pageSize)} />
+          <div className="text-center">
+            <Pager 
+              itemsCount={filterdData.length}
+              pageSize={pageSize}
+              currentPage={currentPage}
+              onPageChange={this.handlePageChange}
+            />
+          </div>
         </main>
     )
   }

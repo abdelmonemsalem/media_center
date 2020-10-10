@@ -7,7 +7,7 @@ const logStatus = localStorage.getItem('logStatus')
 const userType = localStorage.getItem('userType')
 const userId = localStorage.getItem('userId')
 const userConfirmed = localStorage.getItem('userConfirmed')
-const newUserRequests = localStorage.getItem('newUserRequests')
+
 
 const initialState = {
     users: [],
@@ -18,7 +18,6 @@ const initialState = {
     userType: userType === null ? '' : userType,
     userId: userType === null ? '' : userId,
     userConfirmed: userConfirmed === null ? false : userConfirmed,
-    newUserRequests: (newUserRequests === null || newUserRequests === 'undefined' || newUserRequests === '') ? [] : JSON.parse(newUserRequests),
 }
 
 const userReducer = (state = initialState, action) => {
@@ -52,14 +51,13 @@ const userReducer = (state = initialState, action) => {
                 localStorage.setItem('userType', state.users[i].type)
                 localStorage.setItem('userId', state.users[i]._id)
                 localStorage.setItem('userConfirmed', state.users[i].confirmed)
-                localStorage.setItem('newUserRequests', state.users[i].type === 'admin' ? JSON.stringify(action.payLoad) : [])
+                localStorage.setItem('newUserRequests', state.users.filter(x => x.confirmed !== true).length)
                 return {
                     ...state,
                     logStatus: true,
                     userType: state.users[i].type,
                     userId: state.users[i]._id,
                     userConfirmed: state.users[i].confirmed,
-                    newUserRequests: state.users[i].type === 'admin' ? action.payLoad : [],
                 }
             }
         }
@@ -67,13 +65,10 @@ const userReducer = (state = initialState, action) => {
             ...state,
         }
         case USER_LOGOUT:
-            localStorage.removeItem('name')
-            localStorage.removeItem('password')
-            localStorage.removeItem('logStatus')
-            localStorage.removeItem('userType')
-            localStorage.removeItem('userId')
-            localStorage.removeItem('userConfirmed')
-            localStorage.removeItem('newUserRequests')
+            let keysToRemove = ["name", "password", "logStatus", "userType", "userId", "userConfirmed", "newUserRequests"]
+            keysToRemove.forEach(k =>
+                localStorage.removeItem(k)
+            )
         return {
             ...state,
             users: [],
@@ -83,7 +78,6 @@ const userReducer = (state = initialState, action) => {
             userType: '',
             userId: '',
             userConfirmed: false,
-            newUserRequests: []
         }
         default:
             return state;

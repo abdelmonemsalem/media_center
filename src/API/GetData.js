@@ -45,3 +45,15 @@ export async function AddUser(values) {
     console.log(response);
     return response;
 }
+
+export async function EditUser(id, values) {
+    const response = await axios.post('http://localhost:5000/users/update/' + id, values);
+    console.log(response);
+    return response;
+}
+
+export async function DeleteUser(id) {
+    const response = await axios.delete('http://localhost:5000/users/' + id);
+    console.log(response);
+    return response;
+}

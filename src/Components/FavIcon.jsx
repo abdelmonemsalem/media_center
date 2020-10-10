@@ -6,7 +6,7 @@ import { connect } from 'react-redux'
 function FavIcon(props) {
     return (
         <span>
-            <span>{props.favCount}</span>
+            {props.favCount == 0 ? '' : <span className="favCount">{props.favCount}</span>}
             <FontAwesomeIcon icon={faBell} /> Favourites
         </span>
     )

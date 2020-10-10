@@ -4,6 +4,7 @@ import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronCircleRight, faChevronCircleLeft } from '@fortawesome/free-solid-svg-icons'
+import Row from 'react-bootstrap/Row'
 
 function NextArrow(props) {
     const { onClick } = props;
@@ -35,18 +36,20 @@ function DaysSlider(props) {
         nextArrow: <NextArrow />,
         prevArrow: <PrevArrow />
     };
-    const {month, year, months, handleSelectDay} = props;
+    const {month, year, months, handleSelectDay, day} = props;
     const daysInMonth = new Date(parseInt(year), parseInt(month) + 1, 0).getDate();
     const daysList = [];
     for (let i=1; i <= daysInMonth; i++) {
-        daysList.push(<div onClick={handleSelectDay} data-val={i} key={i}><span>{i}</span><span>{months[month]}</span></div>)
+        daysList.push(<div onClick={handleSelectDay} className={parseInt(day) === i ? 'active-day' : ''} data-val={i} key={i}><span>{i}</span><span>{months[month]}</span></div>)
     }
     return (
-        <div className="mediaCenter-days">
-          <Slider {...settings}>
-              {daysList}
-          </Slider>
-        </div>
+        <Row>
+            <div className="mediaCenter-days">
+            <Slider {...settings}>
+                {daysList}
+            </Slider>
+            </div>
+        </Row>
     );
 }
 

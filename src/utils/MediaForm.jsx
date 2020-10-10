@@ -1,9 +1,15 @@
-import React from 'react'
-import {Formik, Form, Field, ErrorMessage} from 'formik'
+import React, { Fragment } from 'react'
+import {Formik, Form as FormikForm, Field, ErrorMessage} from 'formik'
 import * as Yup from 'yup'
 import {Prompt} from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSave } from '@fortawesome/free-solid-svg-icons'
+import Button from 'react-bootstrap/Button'
+import Form from 'react-bootstrap/Form'
+import Row from 'react-bootstrap/Row'
+import Col from 'react-bootstrap/Col'
+
+
 function MediaForm(props) {
 
     const schema = Yup.object().shape({
@@ -16,54 +22,65 @@ function MediaForm(props) {
     const errMsgTemp = msg => {
         return <span className="errMsg">{msg}</span>
     }
-    return <Formik
+    return( 
+<Fragment>
+    <Formik
         enableReinitialize={true}
         initialValues={props.values}
         onSubmit={props.onSubmit}
         validationSchema={schema}
         >
         {(props) => (
-            <Form className="mediaCenter-form">
+            <FormikForm className="m-t-b-30">
                 <Prompt when={props.dirty} message={"You will Lose Entered Data"} />
-                <div className="mediaCenter-formItem">
-                    <label>Title</label>
-                    <Field name="title" />
-                    <ErrorMessage name="title">{errMsgTemp}</ErrorMessage>
-                </div>
-                
-                <div className="mediaCenter-formItem">
-                    <label>Type</label>
-                    <Field name="type" component="select">
-                        <option>Select Type</option>
-                        <option value="news">news</option>
-                        <option value="event">event</option>
-                        <option value="rule">rule</option>
-                    </Field>
-                    <ErrorMessage name="type">{errMsgTemp}</ErrorMessage>
-                </div>
-                
-                <div className="mediaCenter-formItem">
-                    <label>Date</label>
-                    <Field name="date" />
-                    <ErrorMessage name="date">{errMsgTemp}</ErrorMessage>
-                </div>
-                
-                <div className="mediaCenter-formItem">
-                    <label>Image Url</label>
-                    <Field name="imgUrl" />
-                    <ErrorMessage name="imgUrl">{errMsgTemp}</ErrorMessage>
-                </div>
-                
-                <div className="mediaCenter-formItem">
-                    <label>Description</label>
-                    <Field name="description" component="textarea" />
+                <Row>
+                    <Col lg={6} md={6} sm={6}>
+                        <Form.Group>
+                            <Form.Label>Title</Form.Label>
+                            <Field className="form-control" name="title" />
+                            <ErrorMessage name="title">{errMsgTemp}</ErrorMessage>
+                        </Form.Group>
+                    </Col>
+                    <Col lg={6} md={6} sm={6}>
+                        <Form.Group>
+                            <Form.Label>Type</Form.Label>
+                            <Field className="form-control" name="type" component="select">
+                                <option>Select Type</option>
+                                <option value="news">news</option>
+                                <option value="event">event</option>
+                                <option value="rule">rule</option>
+                            </Field>
+                            <ErrorMessage name="type">{errMsgTemp}</ErrorMessage>
+                        </Form.Group>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col lg={6} md={6} sm={6}>
+                        <Form.Group>
+                            <Form.Label>Date</Form.Label>
+                            <Field className="form-control" name="date" />
+                            <ErrorMessage name="date">{errMsgTemp}</ErrorMessage>
+                        </Form.Group>
+                    </Col>
+                    <Col lg={6} md={6} sm={6}>
+                        <Form.Group>
+                            <Form.Label>Image Url</Form.Label>
+                            <Field className="form-control" name="imgUrl" />
+                            <ErrorMessage name="imgUrl">{errMsgTemp}</ErrorMessage>
+                        </Form.Group>
+                    </Col>
+                </Row>
+                <Form.Group>
+                    <Form.Label>Description</Form.Label>
+                    <Field className="form-control" component="textarea" name="description"/>
                     <ErrorMessage name="description">{errMsgTemp}</ErrorMessage>
-                </div>
-                <div style={{"clear": "both"}}></div>
-                <button type="submit"><FontAwesomeIcon icon={faSave} /> Save</button>
-            </Form>
+                </Form.Group>
+                <Button variant="primary" type="submit">
+                    <FontAwesomeIcon icon={faSave} /> Save
+                </Button>
+            </FormikForm>
         )}
-    </Formik>
-}
+    </Formik></Fragment>
+)}
 
 export default MediaForm

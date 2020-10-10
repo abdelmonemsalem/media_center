@@ -8,10 +8,10 @@ const ProtectedRoute = ({ component: Component, ...rest } ) => {
     return (
         <Route {...rest} 
         render={props => {
-            if(rest.logStatus && (rest.userType === 'admin')) {
+            if(rest.logStatus && (rest.userType === 'admin') && (rest.userConfirmed === 'true')) {
                 return <Component {...props} />
             }
-            if(rest.logStatus && (rest.userType === 'user') && (rest.path.includes("/ViewMediaItem") || rest.path === '/MediaCenterShow')) {
+            if(rest.logStatus && (rest.userType === 'user') && (rest.userConfirmed === 'true') && (rest.path.includes("/ViewMediaItem") || rest.path === '/MediaCenterShow')) {
                 return <Component {...props} />
             }
             else {
@@ -32,7 +32,8 @@ const ProtectedRoute = ({ component: Component, ...rest } ) => {
 const mapStateToProps = state => {
     return {
         logStatus: state.user.logStatus,
-        userType: state.user.userType
+        userType: state.user.userType,
+        userConfirmed: state.user.userConfirmed
     }
 }
 

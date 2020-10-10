@@ -5,7 +5,8 @@ import { faSave, faTrashAlt } from '@fortawesome/free-solid-svg-icons'
 import { connect } from 'react-redux'
 import { clearFav } from '../store/rootActions'
 import { EditItem } from '../API/GetData'
-
+import Row from 'react-bootstrap/Row'
+import Button from 'react-bootstrap/Button'
 export class Fav extends Component {
 
     handleClearFav = () => {
@@ -28,12 +29,16 @@ export class Fav extends Component {
         return (
             <div className="mediaMarked">
                 {items.length <= 0 ?
-                    <div className="noItems">No Marked Items To Show</div> :
+                    <div className="noItems text-center m-t-b-30">No Marked Items To Show</div> :
                     (
-                        <div>
-                            {items.map((item, index) => <FavItem key={item._id} item={item} index={index} />)}
-                            <button onClick={() => this.handleClearFav()}>Clear <FontAwesomeIcon icon={faTrashAlt} /></button>
-                            <button onClick={() => this.handleSaveToDB()}>Save <FontAwesomeIcon icon={faSave} /></button>
+                        <div className="m-t-b-30">
+                            <Row>
+                                {items.map((item, index) => <FavItem key={item._id} item={item} index={index} />)}
+                            </Row>
+                            <div className="text-center m-t-b-30">
+                                <Button className="m-10" variant="danger" onClick={() => this.handleClearFav()}>Clear <FontAwesomeIcon icon={faTrashAlt} /></Button>
+                                <Button className="m-10" variant="success" onClick={() => this.handleSaveToDB()}>Save <FontAwesomeIcon icon={faSave} /></Button>
+                            </div>
                         </div>
                     )
                 }

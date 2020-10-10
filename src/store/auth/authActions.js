@@ -23,10 +23,9 @@ export const userTypeCredentila = () => {
         type: USER_TYPE_CREDENTIAL,
     }
 }
-export const userLogin = users => {
+export const userLogin = () => {
     return {
         type: USER_LOGIN,
-        payLoad: users
     }
 }
 export const userLogout = () => {
@@ -41,9 +40,7 @@ export const fetchUsers = () => {
         GetUsers()
         .then(response => {
             const users = response.data
-            const newUsersRequest = response.data.filter(x => x.confirmed !== true)
             dispatch(fetchUsersSuccess(users))
-            dispatch(userLogin(newUsersRequest))
         })
         .catch(error => {
             const errorMsg = error.message
